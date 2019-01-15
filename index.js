@@ -91,7 +91,7 @@ function onTimeout() {
 }
 
 bot.command('register', (msg, reply) => {
-	db.run('INSERT INTO Chats VALUES ?', [msg.chat.id], (err) => {
+	db.run('INSERT INTO Chats VALUES ' + msg.chat.id, (err) => {
 		if (err) {
 			console.error('Register error: ' + err)
 			reply.text('Ha ocurrido un error al registrar este chat.')
