@@ -31,32 +31,6 @@ function isSleeping() {
 	}
 }
 
-bot.all((msg, reply, next) => {
-	console.log(msg)
-	if (isSleeping() && msg.type === 'command') {
-		reply.sticker('CAADAgADCgADW34RE_We9I4GPSllAg') // Sleeping
-	} else {
-		next()
-	}
-})
-
-bot.command('patpat', 'start', (msg, reply) => {
-	let random = Math.floor(Math.random() * patpat.length)
-	reply.sticker(patpat[random])
-})
-
-bot.command('cookie', (msg, reply) => {
-	let random = Math.floor(Math.random() * cookie.length)
-	reply.sticker(cookie[random])
-})
-
-bot.text((msg, reply) => {
-	if (msg.text.toUpperCase() === 'OH' && !isSleeping()) {
-		reply.sticker('CAADBAAD5AIAAlI5kwYZMtKT6WhHTgI') // Oh
-	}
-
-})
-
 function meow() {
 	let reply = bot.reply(chatId)
 	let random = Math.floor(Math.random() * 10)
@@ -85,5 +59,31 @@ function onTimeout() {
 	}
 	setTimeout(onTimeout, Math.floor((Math.random() * 36e5) + 36e5))
 }
+
+bot.all((msg, reply, next) => {
+	console.log(msg)
+	if (isSleeping() && msg.type === 'command') {
+		reply.sticker('CAADAgADCgADW34RE_We9I4GPSllAg') // Sleeping
+	} else {
+		next()
+	}
+})
+
+bot.command('patpat', 'start', (msg, reply) => {
+	let random = Math.floor(Math.random() * patpat.length)
+	reply.sticker(patpat[random])
+})
+
+bot.command('cookie', (msg, reply) => {
+	let random = Math.floor(Math.random() * cookie.length)
+	reply.sticker(cookie[random])
+})
+
+bot.text((msg, reply) => {
+	if (msg.text.toUpperCase() === 'OH' && !isSleeping()) {
+		reply.sticker('CAADBAAD5AIAAlI5kwYZMtKT6WhHTgI') // Oh
+	}
+
+})
 
 onTimeout()
