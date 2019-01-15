@@ -51,7 +51,7 @@ bot.command('cookie', (msg, reply) => {
 })
 
 bot.text((msg, reply) => {
-	if (msg.text === 'Oh' && !isSleeping()) {
+	if (msg.text.toUpperCase() === 'OH' && !isSleeping()) {
 		reply.sticker('CAADBAAD5AIAAlI5kwYZMtKT6WhHTgI') // Oh
 	}
 
