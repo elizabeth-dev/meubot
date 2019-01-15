@@ -12,7 +12,7 @@ module.exports = {
 		},
 		env_production: {
 			NODE_ENV: "production",
-			TELEGRAM_TOKEN: process.env.TELEGRAM_TOKEN-dev
+			TELEGRAM_TOKEN: process.env['TELEGRAM_TOKEN-dev']
 		}
 	}],
 	deploy: {
