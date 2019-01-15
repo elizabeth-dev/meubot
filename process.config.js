@@ -8,11 +8,11 @@ module.exports = {
 		wait_ready: true,
 		env: {
 			NODE_ENV: "dev",
-			TELEGRAM_TOKEN: process.env.TELEGRAM_TOKEN
+			TELEGRAM_TOKEN: process.env['TELEGRAM_TOKEN-dev']
 		},
 		env_production: {
 			NODE_ENV: "production",
-			TELEGRAM_TOKEN: process.env['TELEGRAM_TOKEN-dev']
+			TELEGRAM_TOKEN: process.env.TELEGRAM_TOKEN
 		}
 	}],
 	deploy: {
