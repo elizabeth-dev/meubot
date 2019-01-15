@@ -5,6 +5,7 @@ module.exports = {
 		name: "meubot",
 		script: "./index.js",
 		watch: true,
+		ignore_watch: ['chats.db'],
 		wait_ready: true,
 		env: {
 			NODE_ENV: "dev",
