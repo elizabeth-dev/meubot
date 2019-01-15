@@ -8,13 +8,11 @@ module.exports = {
 		wait_ready: true,
 		env: {
 			NODE_ENV: "dev",
-			TELEGRAM_TOKEN: process.env.TELEGRAM_TOKEN,
-			CHAT_ID: process.env.CHAT_ID
+			TELEGRAM_TOKEN: process.env.TELEGRAM_TOKEN
 		},
 		env_production: {
 			NODE_ENV: "production",
-			TELEGRAM_TOKEN: process.env.TELEGRAM_TOKEN-dev,
-			CHAT_ID: process.env.CHAT_ID-dev
+			TELEGRAM_TOKEN: process.env.TELEGRAM_TOKEN-dev
 		}
 	}],
 	deploy: {

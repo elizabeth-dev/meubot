@@ -1,12 +1,20 @@
 'use strict'
 
+const env = 'process.env.NODE_ENV'
+
 const https = require('https')
 const agent = new https.Agent({ keepAlive: true, maxFreeSockets: 5 })
 const botgram = require('botgram')
 const bot = botgram(process.env.TELEGRAM_TOKEN, { agent: agent })
-const chatId = parseInt(process.env.CHAT_ID)
 
-const env = 'process.env.NODE_ENV'
+const sqlite = require('sqlite3')
+const db = new sqlite.Database('chats.db', (err) => {
+	if (err) {
+		console.error('DB load error: ' + err)
+	}
+})
+
+db.run('CREATE TABLE IF NOT EXISTS Chats (id INT PRIMARY KEY)')
 
 const patpat = [
 	'CAADBAADNQADPhqrAuIowgEmh22mAg', // Happy
@@ -25,34 +33,51 @@ const cookie = [
 	'CAADBAADsgMAAlI5kwYGlNbK360GhwI' // Pancakes
 ]
 
+const timeout = Math.floor((Math.random() * 36e5) + 36e5) // Random timeout for every meow
+
 function isSleeping() {
 	if ((new Date().getUTCHours() + 1) % 24 >= 9) {
-                return false
-        } else {
+		return false
+	} else {
 		return true
 	}
 }
+function random(length) {
+	return Math.floor(Math.random() * length)
+}
 
 function meow() {
-	let reply = bot.reply(chatId)
-	let random = Math.floor(Math.random() * 10)
+	db.each('SELECT id from Chats', (err, row) => {
+		if (err) {
+			console.error('Meow error: ' + err)
+		} else {
+			let reply = bot.reply(row.id)
+			let random = random(10)
 
-	if (random === 0) {
-		reply.sticker('CAADAgADDQADW34RE1irFTfwz4QiAg') // Ask for cookies
-	} else if (random === 1) {
-		reply.sticker('CAADAgADnQEAAjbsGwVbpgs1795URwI') // Sad
-	} else {
-		let text = 'Mè'
+			if (random === 0) {
+				reply.sticker('CAADAgADDQADW34RE1irFTfwz4QiAg') // Ask for cookies
+			} else if (random === 1) {
+				reply.sticker('CAADAgADnQEAAjbsGwVbpgs1795URwI') // Sad
+			} else {
+				let text = 'Mè'
 
-		// Generate a random number of 'e', between 0 and 10
-		const randTime = Math.floor(Math.random() * 12)
-		for (let i = 0; i < randTime; i++) {
-			text += 'e'
+				// Generate a random number of 'e', between 0 and 10
+				const randTime = random(12)
+				for (let i = 0; i < randTime; i++) {
+					text += 'e'
+				}
+
+				text += 'u'
+				reply.text(text)
+			}
 		}
-
-		text += 'u'
-		reply.text(text)
-	}
+	}, (err, rows) => {
+		if (err) {
+			console.error('Meow completion error: ' + err)
+		} else {
+			console.log('Meowed ' + rows + ' times.')
+		}
+	})
 }
 
 function onTimeout() {
@@ -62,8 +87,19 @@ function onTimeout() {
 	if (!isSleeping()) {
 		meow()
 	}
-	setTimeout(onTimeout, Math.floor((Math.random() * 36e5) + 36e5))
+	setTimeout(onTimeout, timeout)
 }
+
+bot.command('register', (msg, reply) => {
+	db.run('INSERT INTO Chats VALUES ?', [msg.chat.id], (err) => {
+		if (err) {
+			console.error('Register error: ' + err)
+			reply.text('Ha ocurrido un error al registrar este chat.')
+		} else {
+			reply.text('Este chat ha sido registrado, ahora, recibirá visitas de Méubot de vez en cuando.')
+		}
+	})
+})
 
 bot.all((msg, reply, next) => {
 
@@ -75,13 +111,11 @@ bot.all((msg, reply, next) => {
 })
 
 bot.command('patpat', 'start', (msg, reply) => {
-	let random = Math.floor(Math.random() * patpat.length)
-	reply.sticker(patpat[random])
+	reply.sticker(patpat[random(patpat.length)])
 })
 
 bot.command('cookie', (msg, reply) => {
-	let random = Math.floor(Math.random() * cookie.length)
-	reply.sticker(cookie[random])
+	reply.sticker(cookie[random(cookie.length)])
 })
 
 bot.text((msg, reply) => {
@@ -91,4 +125,4 @@ bot.text((msg, reply) => {
 
 })
 
-onTimeout()
+setTimeout(onTimeout, timeout)

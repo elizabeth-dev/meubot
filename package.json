@@ -15,7 +15,8 @@
   "author": "Elizabeth Martín Campos",
   "license": "WTFPL",
   "dependencies": {
-    "botgram": "^2.2.0"
+    "botgram": "^2.2.0",
+    "sqlite3": "^4.0.6"
   },
   "devDependencies": {
     "dotenv": "^6.2.0"
