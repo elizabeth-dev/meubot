@@ -6,6 +6,8 @@ const botgram = require('botgram')
 const bot = botgram(process.env.TELEGRAM_TOKEN, { agent: agent })
 const chatId = parseInt(process.env.CHAT_ID)
 
+const env = 'process.env.NODE_ENV'
+
 const patpat = [
 	'CAADBAADNQADPhqrAuIowgEmh22mAg', // Happy
 	'CAADAgADCAEAApmPpQfhiFbfzEYv7QI', // Leg
@@ -54,6 +56,9 @@ function meow() {
 }
 
 function onTimeout() {
+	if (env === 'dev') {
+		console.log(msg)
+	}
 	if (!isSleeping()) {
 		meow()
 	}
@@ -61,7 +66,7 @@ function onTimeout() {
 }
 
 bot.all((msg, reply, next) => {
-	console.log(msg)
+
 	if (isSleeping() && msg.type === 'command') {
 		reply.sticker('CAADAgADCgADW34RE_We9I4GPSllAg') // Sleeping
 	} else {
