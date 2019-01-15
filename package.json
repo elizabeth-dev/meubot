@@ -16,5 +16,8 @@
   "license": "WTFPL",
   "dependencies": {
     "botgram": "^2.2.0"
+  },
+  "devDependencies": {
+    "dotenv": "^6.2.0"
   }
 }
