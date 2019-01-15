@@ -101,6 +101,17 @@ bot.command('register', (msg, reply) => {
 	})
 })
 
+bot.command('unregister', (msg, reply) => {
+	db.run('DELETE FROM Chats WHERE id = ' + msg.chat.id, (err) => {
+		if (err) {
+			console.error('Register error: ' + err)
+			reply.text('Ha ocurrido un error al eliminar este chat.')
+		} else {
+			reply.text('Este chat ha sido eliminado, ahora, Méubot no volverá a maullar hasta que le vuelvas a llamar.')
+		}
+	})
+})
+
 bot.all((msg, reply, next) => {
 
 	if (isSleeping() && msg.type === 'command') {
