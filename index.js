@@ -33,6 +33,13 @@ const cookie = [
 	'CAADBAADsgMAAlI5kwYGlNbK360GhwI' // Pancakes
 ]
 
+const pizza = [
+	'CAADAgADHgEAApmPpQf3fMyh0ylgAgI', // Need pizza
+	'CAADBAADfwMAAlI5kwY00qE2riDGNgI', // Eat inside box
+	'CAADBAADiQMAAlI5kwYtssSryVDSGAI', // Make pizza
+	'CAADAgADuAADmY-lB4KvrWz3nRM1Ag' // Eat pizza
+]
+
 const timeout = Math.floor((Math.random() * 36e5) + 36e5) // Random timeout for every meow
 
 function isSleeping() {
@@ -127,6 +134,10 @@ bot.command('patpat', 'start', (msg, reply) => {
 
 bot.command('cookie', (msg, reply) => {
 	reply.sticker(cookie[random(cookie.length)])
+})
+
+bot.command('pizza', (msg, reply) => {
+	reply.sticker(pizza[random(pizza.length)])
 })
 
 bot.text((msg, reply) => {
