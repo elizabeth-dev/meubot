@@ -59,17 +59,17 @@ function meow() {
 			console.error('Meow error: ' + err)
 		} else {
 			let reply = bot.reply(row.id)
-			let random = random(10)
+			let randAction = randAction(10)
 
-			if (random === 0) {
+			if (randAction === 0) {
 				reply.sticker('CAADAgADDQADW34RE1irFTfwz4QiAg') // Ask for cookies
-			} else if (random === 1) {
+			} else if (randAction === 1) {
 				reply.sticker('CAADAgADnQEAAjbsGwVbpgs1795URwI') // Sad
 			} else {
 				let text = 'Mè'
 
 				// Generate a random number of 'e', between 0 and 10
-				const randTime = random(12)
+				const randTime = randAction(12)
 				for (let i = 0; i < randTime; i++) {
 					text += 'e'
 				}
