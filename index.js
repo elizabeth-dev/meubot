@@ -90,9 +90,6 @@ function meow() {
 }
 
 function onTimeout() {
-	if (env === 'dev') {
-		console.log(msg)
-	}
 	if (!isSleeping()) {
 		meow()
 	}
