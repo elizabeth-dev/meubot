@@ -119,9 +119,8 @@ bot.command('unregister', (msg, reply) => {
 	})
 })
 
-bot.all((msg, reply, next) => {
-
-	if (isSleeping() && msg.type === 'command') {
+bot.command((msg, reply, next) => {
+	if (isSleeping()) {
 		reply.sticker('CAADAgADCgADW34RE_We9I4GPSllAg') // Sleeping
 	} else {
 		next()
