@@ -1,5 +1,8 @@
 .gitsecret/keys/random_seed
 
+# Chat DB
+chats.db
+
 # PM2 file
 process.json
 
