@@ -40,7 +40,9 @@ const pizza = [
 	'CAADAgADuAADmY-lB4KvrWz3nRM1Ag' // Eat pizza
 ]
 
-const timeout = Math.floor((Math.random() * 36e5) + 36e5) // Random timeout for every meow
+function meowTimeout() {
+	return Math.floor((Math.random() * 36e5) + 36e5) // Random timeout for every meow
+}
 
 function isSleeping() {
 	if ((new Date().getUTCHours() + 1) % 24 >= 9) {
@@ -94,7 +96,7 @@ function onTimeout() {
 	if (!isSleeping()) {
 		meow()
 	}
-	setTimeout(onTimeout, timeout)
+	setTimeout(onTimeout, meowTimeout())
 }
 
 bot.command('register', (msg, reply) => {
@@ -146,4 +148,4 @@ bot.text((msg, reply) => {
 
 })
 
-setTimeout(onTimeout, timeout)
+setTimeout(onTimeout, meowTimeout)
