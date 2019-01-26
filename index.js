@@ -38,6 +38,8 @@ const pizza = [
 	'CAADAgADuAADmY-lB4KvrWz3nRM1Ag' // Eat pizza
 ]
 
+const oh = 'CAADBAAD5AIAAlI5kwYZMtKT6WhHTgI';
+
 function meowTimeout() {
 	return Math.floor((Math.random() * 36e5) + 36e5) // Random timeout for every meow
 }
@@ -136,11 +138,12 @@ bot.command('pizza', (msg, reply) => {
 	reply.sticker(pizza[random(pizza.length)])
 })
 
-bot.text((msg, reply) => {
-	if (msg.text.toUpperCase() === 'OH' && !isSleeping()) {
-		reply.sticker('CAADBAAD5AIAAlI5kwYZMtKT6WhHTgI') // Oh
+bot.all((msg, reply) => {
+	if (!isSleeping()) {
+		if ((msg.type === 'text' && msg.text.toUpperCase() === 'OH') || (msg.type === 'sticker' && msg.file.id === oh)) {
+			reply.sticker(oh) // Oh
+		}
 	}
-
 })
 
 setTimeout(onTimeout, meowTimeout)
