@@ -1,7 +1,5 @@
 'use strict'
 
-const env = 'process.env.NODE_ENV'
-
 const https = require('https')
 const agent = new https.Agent({ keepAlive: true, maxFreeSockets: 5 })
 const botgram = require('botgram')
@@ -61,7 +59,7 @@ function meow() {
 			console.error('Meow error: ' + err)
 		} else {
 			let reply = bot.reply(row.id)
-			let randAction = randAction(10)
+			let randAction = random(10)
 
 			if (randAction === 0) {
 				reply.sticker('CAADAgADDQADW34RE1irFTfwz4QiAg') // Ask for cookies
@@ -71,8 +69,8 @@ function meow() {
 				let text = 'Mè'
 
 				// Generate a random number of 'e', between 0 and 10
-				const randTime = randAction(12)
-				for (let i = 0; i < randTime; i++) {
+				const randLetters = random(12)
+				for (let i = 0; i < randLetters; i++) {
 					text += 'e'
 				}
 
