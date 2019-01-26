@@ -61,12 +61,16 @@ function meow() {
 			console.error('Meow error: ' + err)
 		} else {
 			let reply = bot.reply(row.id)
-			let randAction = random(10)
+			let randAction = random(12)
 
 			if (randAction === 0) {
 				reply.sticker('CAADAgADDQADW34RE1irFTfwz4QiAg') // Ask for cookies
 			} else if (randAction === 1) {
 				reply.sticker('CAADAgADnQEAAjbsGwVbpgs1795URwI') // Sad
+			} else if (randAction === 2) {
+				reply.sticker('CAADBAAD2AIAAlI5kwa4IYnU6rFSuAI') // Angry
+			} else if (randAction === 3) {
+				reply.document('CgADBAADZJ4AAkQdZAfeKxymj1rlLwI') // Computer gif
 			} else {
 				let text = 'Mè'
 
@@ -79,6 +83,7 @@ function meow() {
 				text += 'u'
 				reply.text(text)
 			}
+			console.log('Meowed to ' + row.id)
 		}
 	}, (err, rows) => {
 		if (err) {
