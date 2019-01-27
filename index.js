@@ -150,7 +150,11 @@ bot.command('pizza', (msg, reply) => {
 
 bot.all((msg, reply) => {
 	if (!isSleeping()) {
-		if ((msg.type === 'text' && msg.text.toUpperCase() === 'OH') || (msg.type === 'sticker' && msg.file.id === oh)) {
+		const isOhEmoticon = (msg.type === 'text' && msg.text.toUpperCase() === ':O')
+		const isOhText = (msg.type === 'text' && msg.text.toUpperCase() === 'OH')
+		const isOhSticker = (msg.type === 'sticker' && msg.file.id === oh)
+
+		if (isOhEmoticon || isOhText || isOhSticker) {
 			reply.sticker(oh) // Oh
 		} else if (msg.type === 'text' && msg.text.toUpperCase().match(new RegExp('^M([EÈ]+)U$', 'u'))) {
 			reply.text(meowGenerator())
