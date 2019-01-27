@@ -55,6 +55,20 @@ function random(length) {
 	return Math.floor(Math.random() * length)
 }
 
+function meowGenerator() {
+	let text = 'Mè'
+
+	// Generate a random number of 'e', between 0 and 10
+	const randLetters = random(12)
+	for (let i = 0; i < randLetters; i++) {
+		text += 'e'
+	}
+
+	text += 'u'
+
+	return text
+}
+
 function meow() {
 	db.each('SELECT id from Chats', (err, row) => {
 		if (err) {
@@ -72,16 +86,7 @@ function meow() {
 			} else if (randAction === 3) {
 				reply.document('CgADBAADZJ4AAkQdZAfeKxymj1rlLwI') // Computer gif
 			} else {
-				let text = 'Mè'
-
-				// Generate a random number of 'e', between 0 and 10
-				const randLetters = random(12)
-				for (let i = 0; i < randLetters; i++) {
-					text += 'e'
-				}
-
-				text += 'u'
-				reply.text(text)
+				reply.text(meowGenerator())
 			}
 			console.log('Meowed to ' + row.id)
 		}
