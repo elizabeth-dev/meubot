@@ -152,6 +152,8 @@ bot.all((msg, reply) => {
 	if (!isSleeping()) {
 		if ((msg.type === 'text' && msg.text.toUpperCase() === 'OH') || (msg.type === 'sticker' && msg.file.id === oh)) {
 			reply.sticker(oh) // Oh
+		} else if (msg.type === 'text' && msg.text.toUpperCase().match(new RegExp('^M([EÈ]+)U$', 'u'))) {
+			reply.text(meowGenerator())
 		}
 	}
 })
